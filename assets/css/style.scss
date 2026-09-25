@@ -3,23 +3,34 @@
 
 @import "jekyll-theme-minimal";
 
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 /*For Random button*/@at-root
 #random_button{
 border-top: 2px solid #00008B;
 border-bottom: 2px solid #00008B;
 min-width: 75%;
+max-width: 100%;
 display: inline-block;
 }
 
 /*Reading Size*/
 p, pre, h2, h3 {
-  width: 100%;
+  max-width: 100%;
   //max-width: 700px;
 }
 
 /*For the fitty ascii*/
 .fit {
-  display: inline-block;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
   white-space: nowrap;
 }
 
@@ -41,7 +52,8 @@ td {
 
 /* SPOILER TEXT */
 details p{
-  margin-left: 1.2rem;
+  margin-left: 0;
+  padding-left: 1.2rem;
 }
 
 summary {
@@ -65,13 +77,14 @@ h3 {
 
 img.prize {
   height:175px;
-    padding:1px;
-    border:1px solid #021a40;
+  max-width:100%;
+  object-fit:contain;
+  padding:1px;
+  border:1px solid #021a40;
 }
 
 #Titletext {
   color: 090909;
-  font-size: 28px;
   background-color: white;
   font: 28px "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   border:none;
@@ -126,9 +139,10 @@ border-bottom: 1px solid lightgrey;
 }
 	
 img {
-display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 footer {
@@ -145,6 +159,7 @@ font-weight: bold;
 #discuss {
     background-color: white; 
     color: black;
+    max-width: 100%;
     padding: 8px 32px;
     text-align: center;
     text-decoration: none;
@@ -161,6 +176,7 @@ font-weight: bold;
     background-color: #555555; 
     border: 3px solid white;
     color: white;
+    max-width: 100%;
     padding: 8px 32px;
     text-align: center;
     text-decoration: none;
@@ -196,6 +212,7 @@ body {
   color:#090909;
   font-weight:400;
   font-size:15px;
+  overflow-wrap:break-word;
 }
 
 code, pre {
@@ -250,11 +267,13 @@ MIT Licensed
 	z-index: 1;
 }
 .super-search__input {
-	border: 2;
+	border: 2px solid #767676;
 	font-size: 30px;
 	border-left: none;
 	border-right: none;
 	color: #000;
+	min-width: 0;
+	max-width: 100%;
 	width: 100%;
 	padding: 10px 31px;
 	text-align: center;
@@ -284,14 +303,57 @@ MIT Licensed
 	color: #39c;
 	padding: 17px;
 	margin: 12px 14px;
+	overflow-wrap: anywhere;
 	box-shadow: 0 3px 4px rgba(0,0,0,0.1);
 }
 .super-search__result-date {
 	color: #090909;
-	position: absolute;
-	right: 12px;
+	display: block;
+	margin-top: 0.35rem;
+	text-align: right;
 }
 .super-search.is-active {
 	opacity: 1;
 	visibility: visible;
+}
+
+@media screen and (max-width: 800px) {
+  table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  iframe, video {
+    max-width: 100%;
+  }
+
+  img.prize {
+    height: auto;
+    max-height: 175px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #Titletext {
+    font-size: clamp(18px, 7vw, 28px);
+  }
+
+  #discuss, .button {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .super-search__input {
+    font-size: clamp(18px, 7vw, 30px);
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .super-search__results > li > a {
+    margin-right: 0;
+    margin-left: 0;
+    padding: 14px 10px;
+  }
 }
